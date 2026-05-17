@@ -608,3 +608,10 @@ typedef struct {
     short unk17DA;
     short unk17DC;
 } struct_race_setter;
+
+typedef struct gt2_heap_block {
+    struct gt2_heap_block* prev;
+    struct gt2_heap_block* next;
+    s32 size;
+    s32 used;
+} gt2_heap_block;

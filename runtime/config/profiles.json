@@ -1,0 +1,19 @@
+{
+  "default_profile": "enhanced",
+  "profiles": {
+    "enhanced": {
+      "description": "Modernized defaults for native runtime use while preserving the original game core.",
+      "metric_units": true,
+      "extended_draw_distance": true,
+      "force_high_lod": true,
+      "expanded_polygon_buffers": true
+    },
+    "original": {
+      "description": "Conservative behavior for preservation, regression checks, and comparison against the original release.",
+      "metric_units": false,
+      "extended_draw_distance": false,
+      "force_high_lod": false,
+      "expanded_polygon_buffers": false
+    }
+  }
+}

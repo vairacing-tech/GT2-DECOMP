@@ -1,0 +1,14 @@
+{
+  "format_version": 1,
+  "id": "pal-spanish-import",
+  "name": "PAL Spanish resource import",
+  "description": "Example shape for a future PAL-derived localization pack over the NTSC-U 1.2 base.",
+  "base_disc": "gt2_us12_simdisk",
+  "locale": "es-ES",
+  "files": [
+    {
+      "target": "texts/menu.bin",
+      "source": "files/texts/menu.bin"
+    }
+  ]
+}

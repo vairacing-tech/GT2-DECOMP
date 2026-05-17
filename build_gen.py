@@ -246,7 +246,6 @@ cpp_targets_autogen_end = [
     "src/autogen/start/gt2_main_task05_sdkevent_f2.c",
     "src/autogen/start/gt2_unknown_task14_00.c",
     "src/autogen/start/gt2_unknown_task14_003.c",
-    "src/autogen/ovr0/gt2_ovr0_task0a_ovr_func0.c",
     "src/autogen/ovr0/gt2_ovr0_task080.c",
     "src/autogen/ovr0/gt2_ovr0_vol_loader_task3.c",
     "src/autogen/ovr0/gt2_ovr0_task08_play_music_a440.c",
@@ -339,6 +338,10 @@ cpp_targets_autogen_end = [
 # place any actual c files here
 cpp_targets_end = [
     # verified only works on 2.8.1
+    "src/ovr0/gt2_ovr0_task0a_ovr_func0.c",
+    "src/start/gt2_main_task0a_ovr_func2.c",
+    "src/start/gt2_main_task0a_ovr_func20.c",
+    "src/start/gt2_sdk_builtin_vec_delete_func00.c",
     "src/ovr0/gt2_ovr0_task0a_ovr_entrypoint.c",
     "src/ovr0/gt2_ovr0_task0.c",
     "src/ovr0/gt2_ovr0_vol_search_vol_dir.c",

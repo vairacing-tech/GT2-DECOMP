@@ -58,7 +58,7 @@ segments:
     vram: 0x80010000
     align: 4
     subsegments:
-      - [0x800, c, autogen/ovr0/gt2_ovr0_task0a_ovr_func0]
+      - [0x800, c, ovr0/gt2_ovr0_task0a_ovr_func0]
       - [0x8C0, c, ovr0/gt2_ovr0_task0a_ovr_entrypoint]
       - [0x8E4, c, ovr0/gt2_ovr0_vol_search_vol_dir]
       - [0x9FC, c, ovr0/gt2_unknown_task0]
@@ -100,7 +100,7 @@ segments:
       - [0x2370, c, autogen/ovr0/gt2_ovr0_task0b10]
       - [0x2470, c, autogen/ovr0_5]
       - [0x24E4, c, ovr0/gt2_main_task0b2]
-      - [0x2530, .rodata, autogen/ovr0/gt2_ovr0_task0a_ovr_func0]
+      - [0x2530, .rodata, ovr0/gt2_ovr0_task0a_ovr_func0]
       - [0x2538, .rodata, ovr0/gt2_ovr0_task0]
       - [0x253C, rodata, ovr0_0]
       - [0x2584, .rodata, ovr0/gt2_show_vendor_bootlogo_task0]
@@ -347,6 +347,7 @@ segments:
       - [0x7D7C4, c, start/gt2_main_strlen]
       - [0x7D7E0, c, start/gt2_main_memcpy]
       - [0x7D820, c, autogen/start_77]
+      - [0x7D8D0, c, start/gt2_main_task0a_ovr_func2]
       - [0x7D980, c, start/gt2_main_arcade_func0]
       - [0x7D994, c, autogen/start_78]
       - [0x7DFA4, c, autogen/start/gt2_unknown_task14_003]
@@ -355,6 +356,8 @@ segments:
       - [0x7E574, c, autogen/start_80]
       - [0x7E6A4, c, start/gt2_main_sharedovr_func2_00]
       - [0x7E6C4, c, autogen/start_81]
+      - [0x7E704, c, start/gt2_main_task0a_ovr_func20]
+      - [0x7E780, c, start/gt2_sdk_builtin_vec_delete_func00]
       - [0x7E7C4, asm, bios/bcopy]
       - [0x7E7D4, asm, bios/strncmp]
       - [0x7E7E4, asm, bios/bzero]

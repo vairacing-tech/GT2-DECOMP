@@ -1,61 +1,91 @@
-# gt2-reversing
-RE repo for Gran Turismo 2 (PS1)
+# GT2-DECOMP
 
-To build the repo, you'll need to be running Linux. (WSL2 should work, with caveats below. MSYS2 or macOS almost certainly won't!) You'll also need python3 with a working splat installation from pip, a mipsel-compatible bintools (Arch and Debian/Ubuntu have one), and ninja. Finally, once you've checked out the git repo, you'll need to make sure submodules are initialized, since we need a few outside tools to get things working, like maspsx and GTModTools.
+Faithful decompilation work for **Gran Turismo 2 – Simulation Mode (NTSC-U 1.2)**, with a later path toward native Windows and Android execution.
 
-The first step is to obtain a copy of `SCUS_944.88` and `GT2.OVL` from your copy of the simulation disk from the North American 1.2 (Greatest Hits) release. I use this as the basis for decompilation, since it should be nearly identical to the PAL release, but the infrastructure is intended to be able to decompile any near-final or final release of GT2.
+This repository now uses [`ginryuoku/gt2-reversing`](https://github.com/ginryuoku/gt2-reversing) as its upstream decompilation foundation and layers project-specific tooling around it:
 
-Once you have those, place them in `config/gt2_us12_simdisk/orig_bin`. Linux is case sensitive, so leave the names alone.
+- reproducible ingestion of user-provided disc images;
+- version manifests for vanilla and content-modified compatible discs;
+- explicit separation between extracted game data and source code;
+- future-facing contracts for runtime profiles and resource packs.
 
-Finally, to actually build, run `python3 build_gen.py > build.ninja`, and then `ninja`. 
+## Current status
 
-The result will be in `build/`, and consists of seven files: `scus_944.88`, and `gt2_0(1-6).exe`. The build does not currently reassemble the overlays. Rebuilding GT2.OVL does not produce a matching archive; doing that will require far more gzip archaeology and messing with timestamps than I feel is prudent or necessary, especially as GT2 doesn't actually care too much about what's in there, just that it is built correctly (has correct relocations, and the largest overlay does not collide with GT2's start() function).
+- Base disc target: `SCUS_944.88` from **Simulation Mode NTSC-U 1.2**.
+- Upstream decomp coverage: main executable plus separated overlays, with the broader GT Mode reconstruction still in progress.
+- Native runtime: architecture only; not implemented yet.
+- Supported inputs today:
+  - vanilla `.bin/.cue` Simulation Mode NTSC-U 1.2;
+  - structurally compatible modified images, such as user-patched Project A-Spec discs.
 
-### specific note for WSL2 and Ubuntu in general
+## Repository layout
 
-Do not try to check out or build the repo on one of your NTFS mountpoints. This can only lead to pain and suffering. WSL2 is some very impressive tooling but there's some things it just can't cope with and apparently due to 64-bit vs. 32-bit inodes, this is one of them. Check out and build the repo inside your actual Linux (I suggest your home directory, so for example `/home/ginryuoku/projects/gt2-reversing`). We have to use some pretty ancient compilers to build the decomp, so please keep this in mind.
+- `src/`, `include/`, `config/`: upstream decompilation source and configuration.
+- `tools/ingest_disc.py`: validates and extracts supported user-provided disc images.
+- `runtime/config/profiles.json`: public runtime profile contract (`enhanced` / `original`).
+- `resource_packs/schema.json`: initial manifest contract for future PAL-resource import packs.
+- `docs/`: project decisions, architecture, roadmap, and the current Simulation Mode blocker order.
+- `workspace/`: generated disc manifests and extracted files; ignored by Git.
 
-Nenkai summarized the WSL2 environment setup process as follows:
+## Quick start
 
-* `git clone --recurse-submodules --remote-submodules https://github.com/ginryuoku/gt2-reversing.git` (must be in linux, can access files from windows with \\wsl$)
-* `apt install python3-pip python-is-python3`
-* `python3 -m pip install -U splat64[mips]`
-* `sudo dpkg --add-architecture i386` (fixes cc1 issue, 32bit executables)
-* `apt install libc6:i386 libncurses5:i386 libstdc++6:i386`
-* `apt install binutils-mips-linux-gnu`
+### 1. Ingest the game disc
 
-This should also work on bare-metal Ubuntu.
+From the repository root:
 
-### what you need for Gentoo and Arch
+```powershell
+python .\tools\ingest_disc.py `
+  ".\Game Files\Gran Turismo 2 (Simulation Mode) (v1.2).bin" `
+  --prepare-decomp
+```
 
-Gentoo is a bit fussy, and so is Arch. 
+This will:
 
-For splat: On Ubuntu you can sort of get around pip whining because they patched it for less user-hostility, but you're stuck with using `pipx` on Arch and Gentoo to install splat. 
+1. validate the disc layout and identify the build;
+2. extract the required top-level files into `workspace/discs/<disc-id>/files/`;
+3. write a manifest to `workspace/discs/<disc-id>/manifest.json`;
+4. copy `SCUS_944.88` and `GT2.OVL` into the upstream-compatible `config/gt2_us12_simdisk/orig_bin/` folder.
 
-For multilib: Arch needs `[multilib]` enabled. I'm not sure what packages need `x86_abi_32`, strictly speaking, on Gentoo, but installing Steam seems to provide enough 32-bit libraries to make it work. Wine would probably also work. You probably just need a 32-bit glibc, libstdc++ and ncurses (`x86_abi_32`) in practice.
+If the overall disc hash is not the known vanilla image but the disc still matches the expected US 1.2 structure, the tool classifies it as `compatible_modified` rather than rejecting it. That is the intended path for Project A-Spec-style patched images.
 
-For binutils: We provide two compilers out of the box (technically three, but one is just there to provide a cpp binary), but we don't provide a binutils, because a modern binutils will do. On Arch, you install binutils from the AUR as `binutils-mips-linux-gnu`. On Gentoo, you need to install crossdev, and then `crossdev -s0 --target mips-linux-gnu` gets you your binutils. I have absolutely no idea whatsoever if actually building to s4 would get you a viable PS1 compiler, but I strongly doubt it. Just use `-s0` to get yourself a binutils without the other baggage.
+For the current single-track Simulation Mode image, the `.bin` file is sufficient for decompilation work. The ingester also accepts `.cue`, but it is optional for this disc rather than a project requirement.
 
-### build triples
+### 2. Build the matching decompilation target
 
-Currently, this repo only supports US 1.2, but I do have some preliminary support in the build system for attempting to split, splat and build other versions. The format is as follows:
+The matching build flow still follows the upstream Linux/WSL2 workflow because it relies on historical MIPS toolchains. See `docs/DECOMP_BUILD.md` for the practical setup notes.
 
-`(game)_(region+version)_(disk)`
+```bash
+git submodule update --init --recursive
+python3 -m pip install -r requirements-decomp.txt
+python3 build_gen.py > build.ninja
+ninja
+```
 
-"game" is obviously 'gt2' for now.
+The native Windows/Android runtime is a later workstream; the immediate priority remains faithful reconstruction of the original game logic.
 
-"region+version" takes the following versions: jpbeta, jp10, jp11, us10, us11, us12, eubeta, eu10. not all version codes are valid for the next part.
+## Design rules
 
-"disk" is one of four things, though only "simdisk" is supported for now. they are "arcade", "simdisk", "single" and a yymmdd date code. the date code is for prototype titles that aren't close enough to retail to be analyzed in the same manner. "single" is for GT1, GT2K and presumably the combined disk once this repo is capable of building *new* variations of GT2, not just perfectly match Polyphony's binaries from November and December 1999.
+- **Fidelity first** for the reconstructed game logic.
+- **Enhanced by default** for the eventual native runtime, with an `original` profile preserved for regression testing and comparison.
+- **No copyrighted game data** is committed to the repository.
+- **DuckStation feature parity, not `.cht` file compatibility**: improvements such as metric units, higher draw distance, higher LOD, and expanded buffers should become native options.
+- **Project A-Spec compatibility through user-supplied patched discs**, not through bundled patch data.
+- **Future PAL translation import through resource packs**, without requiring full PAL executable support in the first milestone.
 
-### licenses
+## Verification
 
-If it's not in tools/ or include/*.asm, it's almost certainly under LICENSE.md (CC0).
+Run the Python tests with:
 
-I'm not entirely sure what the license is for the GTE macros or the splat asm macros. Probably MIT. The .h includes are ours, so CC0.
+```powershell
+python -m unittest discover -s tests -v
+```
 
-For tools: the tools are licensed under their respective Git submodule licenses.
+Then validate your own disc image with:
 
-ninja_syntax comes from the ninja repo, so it falls under their license. It is present for convenience, as a recent version of ninja_syntax is not available on PyPi.
+```powershell
+python .\tools\ingest_disc.py ".\Game Files\Gran Turismo 2 (Simulation Mode) (v1.2).bin"
+```
 
-The compilers are old versions of GCC, obtained from github decompals/old-gcc. homebrew-psyq44 is from github nocato/homebrew-psyq. All of these are licensed under GPL 2.0, and are not altered by the repo maintainer in any way.
+## Upstream credit
+
+The decompilation core, original build system, and a substantial amount of reverse-engineering work come from the public [`gt2-reversing`](https://github.com/ginryuoku/gt2-reversing) project. Project-specific additions in this repository are intended to build on that work, not replace or obscure it.
