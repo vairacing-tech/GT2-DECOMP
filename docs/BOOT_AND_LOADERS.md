@@ -74,6 +74,8 @@ flowchart LR
     A["gt2_load_overlay_default(index)"] --> B["gt2_load_overlay(index, table[index], 0, 0, 0, 0)"]
     B --> C["save continuation arguments"]
     B --> D["func_8005DAD8"]
+    D --> D1["gt2_main_task200_spu_voice00_vol"]
+    D --> D2["gt2_main_task202"]
     D --> E["prepare / load / decompress overlay payload"]
     D --> F["FlushCache"]
     D --> G["clear runtime state"]
@@ -83,6 +85,13 @@ flowchart LR
 `gt2_main_saveregisters()` and `gt2_main_task201_reload_regs()` show that overlay switches are not a simple function call. The game preserves a continuation context, loads/decompresses a different executable payload, then restores registers and resumes through the new state.
 
 That continuation model is important for any future native runtime: the faithful core should first preserve the original control-flow semantics before the host layer abstracts them.
+
+Two more helpers on that path are now in C:
+
+- `gt2_main_task200_spu_voice00_vol` waits for the 24 SPU voice status slots to go idle, with a bounded spin count;
+- `gt2_main_task202` conditionally runs `gt2_main_task2020` when the same audio-state flag is active.
+
+That makes the transition sequence clearer: overlay loading first quiets or flushes audio-side work, then proceeds into payload preparation and decompression.
 
 ## GT2.OVL metadata path
 
@@ -139,6 +148,6 @@ That means `GT2.VOL` understanding is already far enough along to support the ne
 
 1. Recover names and structure for the overlay table used by `gt2_load_overlay_default`.
 2. Build a concrete inventory of `gt2_vol_cached_dir_indices` consumers so GT Mode assets can be followed from symbolic directory index to actual loader behavior.
-3. Continue naming the fields in the `GT2.OVL` bootstrap state now that both the metadata loader and its heap allocation path are expressed in C.
+3. Finish `func_8005DAD8` in matching C now that its surrounding helpers are understood, then continue naming the fields in the `GT2.OVL` bootstrap state.
 
 Once those three are in place, moving into save/load and the first GT Mode menu state will be much less blind.
