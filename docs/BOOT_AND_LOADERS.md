@@ -86,6 +86,11 @@ flowchart LR
 
 That continuation model is important for any future native runtime: the faithful core should first preserve the original control-flow semantics before the host layer abstracts them.
 
+The dispatch side of that path is now concrete too:
+
+- `gt2_load_overlay` is recovered in matching C and saves the four continuation arguments consumed after the switch;
+- `gt2_overlay_default_entrypoints` is the recovered six-entry table that used to sit behind `D_80091174`.
+
 Two more helpers on that path are now in C:
 
 - `gt2_main_task200_spu_voice00_vol` waits for the 24 SPU voice status slots to go idle, with a bounded spin count;
@@ -103,7 +108,7 @@ flowchart TD
     B --> C["gt2_main_task0a_ovr_func1(\"gt2.ovl\")"]
     C --> D["gt2_main_task082_file_loader"]
     B --> E["parse GT2.OVL header fields"]
-    B --> F["store overlay payload metadata in D_801EF610"]
+    B --> F["store overlay payload metadata in gt2_overlay_archive"]
 ```
 
 `gt2_ovr0_task0a_ovr_func0` is now decompiled. It:
@@ -146,8 +151,8 @@ That means `GT2.VOL` understanding is already far enough along to support the ne
 
 ## Recommended next work
 
-1. Recover names and structure for the overlay table used by `gt2_load_overlay_default`.
-2. Build a concrete inventory of `gt2_vol_cached_dir_indices` consumers so GT Mode assets can be followed from symbolic directory index to actual loader behavior.
-3. Finish `func_8005DAD8` in matching C now that its surrounding helpers are understood, then continue naming the fields in the `GT2.OVL` bootstrap state.
+1. Build a concrete inventory of `gt2_vol_cached_dir_indices` consumers so GT Mode assets can be followed from symbolic directory index to actual loader behavior.
+2. Finish `func_8005DAD8` in matching C now that its surrounding helpers are understood.
+3. Continue naming fields in `gt2_overlay_archive_state` as more `GT2.OVL` consumers are recovered.
 
 Once those three are in place, moving into save/load and the first GT Mode menu state will be much less blind.

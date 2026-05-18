@@ -574,11 +574,23 @@ typedef enum
 } gt2_race_part_type;
 
 typedef struct {
-    s32 unk0;
+    s32 payload_offset;
     s32 unk4;
-    s32 unk8;
-    s32 unkC;
-} struct_1c945c;
+} gt2_overlay_archive_entry;
+
+typedef struct {
+    s32 payload_load_delta;
+    s32 payload_size;
+    s32 cached_payload;
+    gt2_overlay_archive_entry entries[6];
+} gt2_overlay_archive_state;
+
+typedef struct {
+    s32 arg0;
+    s32 arg1;
+    s32 arg2;
+    s32 arg3;
+} gt2_overlay_continuation_args;
 
 typedef struct
 {
