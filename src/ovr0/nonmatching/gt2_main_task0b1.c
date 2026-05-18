@@ -1,4 +1,5 @@
 #include "common.h"
+#include "gt2_vol_cache.h"
 
 void gt2_main_task0b10 ();         /* extern */
 void gt2_main_task0b11 (unsigned int, unsigned int); /* extern */
@@ -13,7 +14,7 @@ gt2_main_task0b1 (void)
   unsigned int *temp_v2;
 
   gt2_main_task0b10 ();
-  gt2_main_task0b11 (6, &D_801E18E0);
+  gt2_main_task0b11 (GT2_VOL_CACHE_SLOT_CRSINFO, &D_801E18E0);
 
   var_a0 = 8;
 

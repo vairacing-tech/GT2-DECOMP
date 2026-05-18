@@ -44,6 +44,8 @@ The recovered code exposes four small wrappers around the cache:
 
 Below those wrappers, recovered helper `gt2_main_task0b1100()` is the common dispatch point for actual GTFS reads: it resolves the packed file-data value into `(dst, sector_offset, byte_span)` and invokes the selected reader function.
 
+The first stable slot names now live in `include/gt2_vol_cache.h`, so code using the replay bounds, `/.crsinfo`, or `/sound/sys.ins` no longer needs to hide those assets behind raw hex literals.
+
 Two more patterns matter:
 
 - `gt2_main_task0b7()` subtracts cached replay endpoints `0xE4` and `0xE5` to derive the SCEA replay-count span.
