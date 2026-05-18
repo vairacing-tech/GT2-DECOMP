@@ -98,6 +98,16 @@ Two more helpers on that path are now in C:
 
 That makes the transition sequence clearer: overlay loading first quiets or flushes audio-side work, then proceeds into payload preparation and decompression.
 
+### Matching note: `func_8005DAD8`
+
+The remaining gap on `func_8005DAD8` is now isolated to compiler scheduling rather than missing behavior:
+
+- the original binary starts with `move a1, a0`, loads the `gt2_overlay_archive` address into `a0`, and only then allocates its stack frame;
+- the current GCC 2.8.1-based build path emits the frame allocation first for every equivalent C shape tested so far, including minimized repros and scheduler-flag variants;
+- nearby untouched wrappers show the same delayed-prologue family, so this is not a one-off misunderstanding of the loader logic.
+
+The reconstructed C reference now lives in `src/start/nonmatching/func_8005DAD8.c`, while the exact matching build intentionally keeps the original assembly. That keeps the behavior understood and reviewable without pretending the current toolchain can reproduce a schedule it has not yet demonstrated.
+
 ## GT2.OVL metadata path
 
 The `GT2.OVL` bootstrap path is already visible:
@@ -152,8 +162,8 @@ That cache is now mapped in more detail in [`GT2_VOL_CACHE.md`](GT2_VOL_CACHE.md
 
 ## Recommended next work
 
-1. Finish `func_8005DAD8` in matching C now that its surrounding helpers are understood.
-2. Continue naming fields in `gt2_overlay_archive_state` as more `GT2.OVL` consumers are recovered.
-3. Recover the small loader wrappers around `gt2_vol_cached_dir_indices` so cached slot IDs become obvious at their call sites instead of remaining raw numeric arguments.
+1. Continue naming fields in `gt2_overlay_archive_state` as more `GT2.OVL` consumers are recovered.
+2. Recover the small loader wrappers around `gt2_vol_cached_dir_indices` so cached slot IDs become obvious at their call sites instead of remaining raw numeric arguments.
+3. Revisit `func_8005DAD8` only when there is either a compiler-scheduling breakthrough or an explicit project decision to accept a documented assembly exception there.
 
 Once those three are in place, moving into save/load and the first GT Mode menu state will be much less blind.
