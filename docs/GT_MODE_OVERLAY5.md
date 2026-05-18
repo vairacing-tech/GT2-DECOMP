@@ -35,20 +35,25 @@ The next layer up is now partly in C as well:
 
 | Function | Behavior |
 | --- | --- |
+| `func_80022634(index, out_count, out_items)` | resolves a packed bucket and returns its element count plus item pointer |
 | `func_800226A0(state, arg1, arg2)` | clears a `0x2BC`-byte state block, then initializes it |
 | `func_800226F4(state)` | forwards to the state cleanup routine |
 | `func_80022714(state, arg1)` | computes a 4-byte-aligned read destination inside the state |
 | `func_80022758(state, slot)` | loads a cached asset into that destination and finalizes it |
 | `func_80022838(state)` | conditionally releases active payload state, then clears the active flag |
+| `func_80022874()` | initializes the shared loader state used by the overlay |
+| `func_800228D4(index)` | switches the shared loader to a new cached slot on demand |
+| `func_80022934()` | resets the active cached-slot marker and tears the loader down |
 
 Together these functions outline a small lifecycle:
 
 ```mermaid
 flowchart LR
-    A["clear/init state"] --> B["compute aligned destination"]
-    B --> C["load asset into destination"]
-    C --> D["finalize/use payload"]
-    D --> E["release active payload"]
+    A["initialize shared loader"] --> B["clear/init state"]
+    B --> C["compute aligned destination"]
+    C --> D["load asset into destination"]
+    D --> E["finalize/use payload"]
+    E --> F["release active payload"]
 ```
 
 ## Why this matters

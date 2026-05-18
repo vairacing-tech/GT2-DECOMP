@@ -342,11 +342,15 @@ cpp_targets_autogen_end = [
     "src/ovr5/func_800224B0.c",
     "src/ovr5/func_800224C4.c",
     "src/ovr5/func_800224D4.c",
+    "src/ovr5/func_80022634.c",
     "src/ovr5/func_800226A0.c",
     "src/ovr5/func_800226F4.c",
     "src/ovr5/func_80022714.c",
     "src/ovr5/func_80022758.c",
     "src/ovr5/func_80022838.c",
+    "src/ovr5/func_80022874.c",
+    "src/ovr5/func_800228D4.c",
+    "src/ovr5/func_80022934.c",
     "src/autogen/ovr5/gt2_ovr5_format_number.c",
     "src/ovr5/gt2_ovr5_get_main_car_part_number_by_car_id.c",
     "src/autogen/ovr5/gt2_ovr5_get_machine_test_game_mode.c",
@@ -366,7 +370,6 @@ cpp_targets_autogen_end = [
     "src/autogen/ovr5_17_6_3.c",
     "src/autogen/ovr5_17_6_4.c",
     "src/autogen/ovr5_17_6_5.c",
-    "src/autogen/ovr5_17_6_6.c",
     "src/autogen/ovr6/gt2_ovr6_task4.c",
 ]
 # place any actual c files here
