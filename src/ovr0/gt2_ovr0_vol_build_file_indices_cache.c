@@ -3,12 +3,12 @@
 #include "common.h"
 #include "structs.h"
 
-extern char* D_8009118C[248]; // gt2_vol_used_dirs
+extern char* gt2_vol_cached_paths[248];
 extern int gt2_vol_buffer;   // gt2_vol_buffer
 unsigned short gt2_vol_cached_dir_indices[256];   // gt2_vol_cached_dir_indices
 
 void gt2_ovr0_vol_build_file_indices_cache(void) { // gt2_main_vol_build_file_indices_cache
-    char** path_ptr = D_8009118C;
+    char** path_ptr = gt2_vol_cached_paths;
     unsigned short* indices_ptr = &gt2_vol_cached_dir_indices;
     gt2_vol_entry* entry;
 

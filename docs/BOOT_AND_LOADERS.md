@@ -145,14 +145,15 @@ The existing recovered code establishes three useful concepts:
 
 - `gt2_vol_header_ptr`: retained GTFS header data;
 - `gt2_vol_buffer`: working storage for the file-entry table;
-- `gt2_vol_cached_dir_indices`: fast lookup cache for frequently used directories.
+- `gt2_vol_cached_paths`: the 248-path source table used to build the cache;
+- `gt2_vol_cached_dir_indices`: fast lookup cache for those frequently used paths.
 
-That means `GT2.VOL` understanding is already far enough along to support the next serious reverse-engineering step: tracing which cached indices correspond to boot assets, car data, menus, and later race content.
+That cache is now mapped in more detail in [`GT2_VOL_CACHE.md`](GT2_VOL_CACHE.md). The important result is that the table is not a narrow "directory" helper at all: it spans boot metadata, car databases, arcade assets, locale-specific GT menu packs, replay ranges, and sound banks. Several call sites treat the slot number as a stable symbolic asset ID.
 
 ## Recommended next work
 
-1. Build a concrete inventory of `gt2_vol_cached_dir_indices` consumers so GT Mode assets can be followed from symbolic directory index to actual loader behavior.
-2. Finish `func_8005DAD8` in matching C now that its surrounding helpers are understood.
-3. Continue naming fields in `gt2_overlay_archive_state` as more `GT2.OVL` consumers are recovered.
+1. Finish `func_8005DAD8` in matching C now that its surrounding helpers are understood.
+2. Continue naming fields in `gt2_overlay_archive_state` as more `GT2.OVL` consumers are recovered.
+3. Recover the small loader wrappers around `gt2_vol_cached_dir_indices` so cached slot IDs become obvious at their call sites instead of remaining raw numeric arguments.
 
 Once those three are in place, moving into save/load and the first GT Mode menu state will be much less blind.
