@@ -39,7 +39,7 @@ The recovered code exposes four small wrappers around the cache:
 | --- | --- |
 | `gt2_main_task0b11(slot, dst)` | resolves `slot` through `gt2_vol_cached_dir_indices` and loads the file through the normal CD-read path |
 | `gt2_main_shared_arcaderace_func32(slot)` | resolves `slot` and returns the file-data sector offset |
-| `gt2_main_shared_arcaderace_func33(slot)` | resolves `slot` and returns the file span encoded by adjacent GTFS header entries |
+| `gt2_main_shared_arcaderace_func33(slot)` | resolves `slot` and returns the file span encoded by adjacent GTFS header entries through recovered helper `gt2_main_task0b2101()` |
 | `gt2_main_shared_gtracemenu_func0(slot, dst)` | resolves `slot` and loads through the alternate race/GT/arcade read path |
 
 Two more patterns matter:

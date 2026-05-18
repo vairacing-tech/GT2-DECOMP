@@ -370,6 +370,7 @@ cpp_targets_end = [
     "src/ovr5/gt2_ovr5_max3.c",
     "src/ovr5/gt2_ovr5_min3.c",
     "src/start/gt2_main_vol_get_file_data_sector_offset.c",
+    "src/start/gt2_main_task0b2101.c",
     "src/start/gt2_load_overlay_default.c",
     "src/start/gt2_load_overlay.c",
     "src/start/gt2_overlay_default_entrypoints.c",
