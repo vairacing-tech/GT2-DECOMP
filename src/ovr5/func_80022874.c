@@ -1,13 +1,14 @@
 // builds only with GCC 2.8.1
 #include "common.h"
+#include "gt2_ovr5_loader.h"
 
 extern s32 D_80092E74;
-extern u8 D_800BA144;
+extern gt2_ovr5_loader_state D_800BA144;
 extern u8 D_800BA404;
 
 void gt2_main_task200_spu_voice00_vol(void);
-void func_800226A0(void*, void*, s32);
-void func_80022714(void*, s32);
+void func_800226A0(gt2_ovr5_loader_state*, void*, s32);
+void func_80022714(gt2_ovr5_loader_state*, s32);
 void gt2_unknown_taskF0(s32);
 
 void func_80022874(void) {

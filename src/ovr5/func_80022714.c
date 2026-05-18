@@ -1,11 +1,6 @@
 // builds only with GCC 2.8.1
 #include "common.h"
-
-typedef struct {
-    u32 base;
-    u8 pad4[0x2B0];
-    u32 read_dst;
-} gt2_ovr5_loader_state;
+#include "gt2_ovr5_loader.h"
 
 u32 gt2_main_task0b21(gt2_ovr5_loader_state*, s32, s32, s32);
 

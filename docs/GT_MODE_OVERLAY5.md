@@ -45,6 +45,16 @@ The next layer up is now partly in C as well:
 | `func_800228D4(index)` | switches the shared loader to a new cached slot on demand |
 | `func_80022934()` | resets the active cached-slot marker and tears the loader down |
 
+Those helpers now share the recovered `gt2_ovr5_loader_state` shape from
+`include/gt2_ovr5_loader.h`; the currently visible fields are:
+
+| Offset | Field |
+| --- | --- |
+| `0x000` | `base` |
+| `0x00C` | `payload` start |
+| `0x2B4` | `read_dst` |
+| `0x2B8` | `active` |
+
 Together these functions outline a small lifecycle:
 
 ```mermaid
