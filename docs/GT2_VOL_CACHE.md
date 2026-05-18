@@ -42,6 +42,8 @@ The recovered code exposes four small wrappers around the cache:
 | `gt2_main_shared_arcaderace_func33(slot)` | resolves `slot` and returns the file span encoded by adjacent GTFS header entries through recovered helper `gt2_main_task0b2101()` |
 | `gt2_main_shared_gtracemenu_func0(slot, dst)` | resolves `slot` and loads through the alternate race/GT/arcade read path |
 
+Below those wrappers, recovered helper `gt2_main_task0b1100()` is the common dispatch point for actual GTFS reads: it resolves the packed file-data value into `(dst, sector_offset, byte_span)` and invokes the selected reader function.
+
 Two more patterns matter:
 
 - `gt2_main_task0b7()` subtracts cached replay endpoints `0xE4` and `0xE5` to derive the SCEA replay-count span.

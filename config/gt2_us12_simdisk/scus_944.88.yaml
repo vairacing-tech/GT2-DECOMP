@@ -137,6 +137,7 @@ segments:
       - [0x4DF68, c, start/gt2_main_shared_arcaderace_func33]
       - [0x4DF9C, c, start/gt2_main_task0b2101]
       - [0x4DFD0, c, autogen/start_0]
+      - [0x4E048, c, start/gt2_main_task0b1100]
       - [0x4E0A0, c, start/gt2_main_task0b11]
       - [0x4E0D4, c, start/gt2_main_shared_gtracemenu_func0]
       - [0x4E108, c, start/gt2_main_task0b110]
