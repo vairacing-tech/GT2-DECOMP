@@ -14,6 +14,10 @@ These functions all read the current 8-byte record selected by `D_800529A2` from
 
 That is enough evidence to treat the table as a compact record array rather than as unrelated globals.
 
+`func_80021BEC(car_id, alternate_byte)` now also exposes one GT Mode-facing
+consumer of the recovered car-part tables: it resolves the main part row for a
+car and returns either byte `+0x7` or byte `+0x6` from part kind `0x1D`.
+
 ## 2. Relative-offset blob helpers
 
 Several small helpers operate on packed blobs that store offsets relative to their own base address:
@@ -54,6 +58,10 @@ Those helpers now share the recovered `gt2_ovr5_loader_state` shape from
 | `0x00C` | `payload` start |
 | `0x2B4` | `read_dst` |
 | `0x2B8` | `active` |
+
+`func_80021CB4(dst, tag)` is another small but useful connective helper: it
+opens a new writer entry only when the tag changes, otherwise it reuses the
+existing destination unchanged.
 
 Together these functions outline a small lifecycle:
 
