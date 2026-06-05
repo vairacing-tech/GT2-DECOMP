@@ -378,6 +378,7 @@ cpp_targets_autogen_end = [
 # place any actual c files here
 cpp_targets_end = [
     # verified only works on 2.8.1
+    "src/ovr5/func_8001050C.c",
     "src/ovr5/gt2_ovr5_load_license_task0.c",
     "src/ovr0/gt2_ovr0_task0a_ovr_func0.c",
     "src/start/gt2_main_task0a_ovr_func2.c",
