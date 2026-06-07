@@ -282,7 +282,7 @@ cpp_targets_autogen_end = [
     "src/autogen/ovr1/func_80036980.c",
     "src/autogen/ovr1/func_80037834.c",
     "src/ovr1/func_8003932C.c",
-    "src/autogen/ovr1/func_8003C12C.c",
+    "src/ovr1/func_8003C12C.c",
     "src/autogen/ovr1/func_800418E8.c",
     "src/autogen/ovr1/func_800449C8.c",
     "src/autogen/ovr1/func_80045AE8.c",
