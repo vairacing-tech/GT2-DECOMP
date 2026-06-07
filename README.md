@@ -2,7 +2,13 @@
 
 Faithful decompilation work for **Gran Turismo 2 – Simulation Mode (NTSC-U 1.2)**, with a later path toward native Windows and Android execution.
 
-This repository now uses [`ginryuoku/gt2-reversing`](https://github.com/ginryuoku/gt2-reversing) as its upstream decompilation foundation and layers project-specific tooling around it:
+## Project lineage and attribution
+
+GT2-DECOMP is maintained as an independent project, based on the public decompilation work from [`ginryuoku/gt2-reversing`](https://github.com/ginryuoku/gt2-reversing).
+
+That upstream project provided the initial Simulation Mode decompilation foundation. This repository builds on that base with project-specific goals, tooling, documentation, runtime planning, and compatibility policy for a future native Windows/Android runtime.
+
+Current project-specific layers include:
 
 - reproducible ingestion of user-provided disc images;
 - version manifests for vanilla and content-modified compatible discs;
