@@ -301,7 +301,7 @@ cpp_targets_autogen_end = [
     "src/autogen/ovr1/func_80052D84.c",
     "src/autogen/ovr1/func_8005480C.c",
     "src/autogen/ovr1/func_80054B9C.c",
-    "src/autogen/ovr1/func_800551BC.c",
+    "src/ovr1/func_800551BC.c",
     "src/autogen/ovr1/func_80055328.c",
     "src/autogen/ovr1/func_80055D50.c",
     "src/autogen/ovr1/func_80056194.c",
