@@ -58,7 +58,7 @@ segments:
     align: 4
     subsegments:
       - [0x0, c, autogen/ovr1]
-      - [0x1704, c, autogen/ovr1/func_80011704]
+      - [0x1704, c, ovr1/func_80011704]
       - [0x17C4, c, autogen/ovr1_0]
       - [0x2274, c, ovr1/func_80012274]
       - [0x22C4, c, autogen/ovr1_1]
@@ -94,7 +94,7 @@ segments:
       - [0x1D664, c, autogen/ovr1_14]
       - [0x1E204, c, autogen/ovr1/func_8002E204]
       - [0x1E390, c, autogen/ovr1_15]
-      - [0x1EE98, .rodata, autogen/ovr1/func_80011704]
+      - [0x1EE98, .rodata, ovr1/func_80011704]
       - [0x1EEC0, rodata, autogen/ovr1_000]
       - [0x1EF08, .rodata, ovr1/func_80012274]
       - [0x1EF20, .rodata, autogen/ovr1/func_80015FF8]

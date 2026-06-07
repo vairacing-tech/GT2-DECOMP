@@ -255,7 +255,7 @@ cpp_targets_autogen_end = [
     "src/autogen/ovr0/gt2_ovr0_task0b04_carwheel_loader.c",
     "src/autogen/ovr0/gt2_ovr0_task0b05_enginedata_loader.c",
     "src/autogen/ovr0/gt2_ovr0_task0b10.c",
-    "src/autogen/ovr1/func_80011704.c",
+    "src/ovr1/func_80011704.c",
     "src/ovr1/func_80012274.c",
     "src/autogen/ovr1/func_80015FF8.c",
     "src/ovr1/func_80016328.c",
