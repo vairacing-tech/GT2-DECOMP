@@ -74,7 +74,7 @@ The native Windows/Android runtime is a later workstream; the immediate priority
 - **Fidelity first** for the reconstructed game logic.
 - **Enhanced by default** for the eventual native runtime, with an `original` profile preserved for regression testing and comparison.
 - **No copyrighted game data** is committed to the repository.
-- **DuckStation feature parity, not `.cht` file compatibility**: improvements such as metric units, higher draw distance, higher LOD, and expanded buffers should become native options.
+- **Community patch feature parity, not `.cht` file compatibility**: improvements such as metric units, higher draw distance, higher LOD, and expanded buffers should become native options.
 - **Project A-Spec compatibility through user-supplied patched discs**, not through bundled patch data.
 - **Future PAL translation import through resource packs**, without requiring full PAL executable support in the first milestone.
 

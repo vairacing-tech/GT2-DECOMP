@@ -25,7 +25,7 @@ The first major gameplay milestone is not a tech demo. It is a complete Simulati
    - The eventual runtime should expose:
      - `enhanced` as the default profile;
      - `original` as the preservation/regression profile.
-   - Enhanced features should be native equivalents of known community patches, not a dependency on loading DuckStation `.cht` files directly.
+   - Enhanced features should be native equivalents of known community patches, not a dependency on loading `.cht` cheat files directly.
 
 3. **No copyrighted assets in Git**
    - User-provided discs and extracted files belong in ignored paths such as `Game Files/` and `workspace/`.
@@ -87,7 +87,7 @@ Known audited state as of **2026-05-16**:
 
 ## Compatibility policy
 
-### DuckStation-style improvements
+### Community patch-style improvements
 
 Support the **capabilities**, not the original cheat-file format:
 
